@@ -76,9 +76,9 @@ def triggerEvent(Map executionData, Map configuration) {
     
   // Send the request.
   def url = new URL(configuration.redmine_url)
-  def proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(configuration.proxy_url, Integer.parseInt(configuration.proxy_port)));
   def connection = null
   if (configuration.proxy == "true") { 
+    def proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(configuration.proxy_url, Integer.parseInt(configuration.proxy_port)));
     connection = url.openConnection(proxy)
   } else { connection = url.openConnection() }
   connection.setRequestMethod("POST")
