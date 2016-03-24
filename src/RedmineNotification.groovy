@@ -25,6 +25,7 @@ def subjectString(text,binding) {
   def tokens=[
     '${job.project}': binding.execution.job.project,
     '${job.name}': binding.execution.job.name,
+    '${job.group}': binding.execution.job.group,
     '${job.status}': binding.execution.status.toUpperCase(),    
   ]
   text.replaceAll(/(\$\{\S+?\})/){
@@ -42,6 +43,7 @@ def descriptionString(text,binding) {
     '${job.project}': binding.execution.job.project,
     '${job.name}': binding.execution.job.name,
     '${job.user}': binding.execution.user,
+    '${job.group}': binding.execution.job.group,
     '${job.status}': binding.execution.status.toUpperCase(),   
     '${execution.href}': binding.execution.href, 
   ]
@@ -109,8 +111,8 @@ rundeckPlugin(NotificationPlugin){
   title="Redmine"
   description="Create a issues redmine."
   configuration{
-    subject title:"Subject", description:"Incident subject line. Can contain \${job.status}, \${job.project}, \${job.name}", defaultValue:DEFAULTS.SUBJECT_LINE,required:true
-    description title:"Description", description:"Incident description line. Can contain \${job.project}, \${job.name}, \${job.user}, \${job.status}", defaultValue:DEFAULTS.DESCRIPTION_LINE,required:true
+    subject title:"Subject", description:"Incident subject line. Can contain \${job.status}, \${job.project}, \${job.group}, \${job.name}", defaultValue:DEFAULTS.SUBJECT_LINE,required:true
+    description title:"Description", description:"Incident description line. Can contain \${job.project}, \${job.name}, \${job.group}, \${job.user}, \${job.status}, \${execution.href}", defaultValue:DEFAULTS.DESCRIPTION_LINE,required:true
     project title:"Project", description:"Define project id. Example : 1 (Rundeck)", defaultValue:DEFAULTS.REDMINE_PROJECT,required:true
     tracker title:"Tracker", description:"Define tracker id. Example : 1 (Change), 2 (Incident), 3 (Problem), 4 (Information)", defaultValue:DEFAULTS.REDMINE_TRACKER_ID,required:true
     priority title:"Priority", description:"Define project id. Example : 1 (No Priority), 2 (low), 3 (Normal), 4 (High)", defaultValue:DEFAULTS.REDMINE_PRIORITY_ID,required:true    
